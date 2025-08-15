@@ -1,0 +1,167 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Source+Code+Pro:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Matrix Cyberpunk Color Palette */
+  --matrix-green: #00FF41;
+  --matrix-green-dark: #00CC33;
+  --matrix-green-light: #66FF80;
+  --deep-black: #0D0208;
+  --cyber-black: #0F0F0F;
+  --cyan-blue: #00D9FF;
+  --cyan-glow: #00E6FF;
+  --red-alert: #FF0040;
+  --red-glow: #FF1A55;
+  --neon-purple: #9D00FF;
+  --electric-blue: #0080FF;
+  
+  /* Background gradients */
+  --bg-matrix: linear-gradient(135deg, var(--deep-black) 0%, #001100 50%, var(--deep-black) 100%);
+  --bg-terminal: linear-gradient(180deg, #000000 0%, #0a0a0a 100%);
+  --bg-card: rgba(0, 255, 65, 0.03);
+  --bg-card-hover: rgba(0, 255, 65, 0.08);
+  
+  /* Text colors */
+  --text-primary: var(--matrix-green);
+  --text-secondary: var(--cyan-blue);
+  --text-muted: rgba(0, 255, 65, 0.6);
+  --text-danger: var(--red-alert);
+  
+  /* Border colors */
+  --border-primary: rgba(0, 255, 65, 0.3);
+  --border-secondary: rgba(0, 217, 255, 0.3);
+  --border-glow: rgba(0, 255, 65, 0.8);
+  
+  /* Shadow effects */
+  --shadow-green: 0 0 20px rgba(0, 255, 65, 0.3);
+  --shadow-cyan: 0 0 20px rgba(0, 217, 255, 0.3);
+  --shadow-red: 0 0 20px rgba(255, 0, 64, 0.3);
+  
+  /* Animation variables */
+  --matrix-speed: 2s;
+  --glitch-duration: 0.3s;
+  --typing-speed: 0.05s;
+}
+
+body {
+  background: var(--bg-matrix);
+  color: var(--text-primary);
+  font-family: 'Fira Code', 'Source Code Pro', monospace;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* Matrix Code Animation Keyframes */
+@keyframes matrix-rain {
+  0% { transform: translateY(-100vh); opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+@keyframes matrix-glow {
+  0%, 100% { text-shadow: 0 0 5px var(--matrix-green); }
+  50% { text-shadow: 0 0 20px var(--matrix-green), 0 0 30px var(--matrix-green); }
+}
+
+@keyframes glitch {
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  100% { transform: translate(0); }
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+@keyframes neon-pulse {
+  0%, 100% { 
+    box-shadow: 0 0 5px var(--matrix-green), 
+                0 0 10px var(--matrix-green), 
+                0 0 15px var(--matrix-green);
+  }
+  50% { 
+    box-shadow: 0 0 10px var(--matrix-green), 
+                0 0 20px var(--matrix-green), 
+                0 0 30px var(--matrix-green);
+  }
+}
+
+/* Terminal cursor */
+.cursor::after {
+  content: '_';
+  color: var(--matrix-green);
+  animation: blink 1s infinite;
+}
+
+/* Glitch effect utility class */
+.glitch {
+  position: relative;
+  animation: glitch var(--glitch-duration) infinite;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.glitch::before {
+  color: var(--cyan-blue);
+  z-index: -1;
+  animation: glitch var(--glitch-duration) infinite;
+  clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+}
+
+.glitch::after {
+  color: var(--red-alert);
+  z-index: -2;
+  animation: glitch var(--glitch-duration) infinite reverse;
+  clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+}
+
+/* Matrix text glow */
+.matrix-glow {
+  animation: matrix-glow 2s ease-in-out infinite alternate;
+}
+
+/* Neon border */
+.neon-border {
+  border: 1px solid var(--border-primary);
+  animation: neon-pulse 2s ease-in-out infinite;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--deep-black);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--matrix-green);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--matrix-green-light);
+}
+
+/* Selection styling */
+::selection {
+  background: rgba(0, 255, 65, 0.3);
+  color: var(--matrix-green);
+}
